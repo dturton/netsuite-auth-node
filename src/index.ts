@@ -79,7 +79,7 @@ export default class NsApi {
    * @public
    */
   public async request(opts: NSApiRequestOptions): Promise<AxiosResponse> {
-    const { path, method = "GET", body } = opts;
+    const { path, method, body } = opts;
 
     const url = `${this.companyUrl}/services/rest/${path}`;
 
@@ -115,7 +115,7 @@ export default class NsApi {
    * @public
    */
   public async callRestlet(opts: NSApiRequestOptions): Promise<AxiosResponse> {
-    const { path, method = "GET", body } = opts;
+    const { path, method, body } = opts;
 
     const url = `${this.companyUrl}/app/site/hosting/restlet.nl${path}`;
 
