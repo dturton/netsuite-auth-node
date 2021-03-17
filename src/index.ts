@@ -90,7 +90,7 @@ export default class NsApi {
       method,
       data: body,
     };
-    this.debug(`requestOptions ${requestOptions}`);
+    this.debug(`requestOptions ${JSON.stringify(requestOptions)}`);
     const token: OAuth.Token = {
       key: this.token,
       secret: this.secret,
@@ -99,7 +99,7 @@ export default class NsApi {
       requestOptions,
       token
     );
-    this.debug(`headers ${headers}`);
+    this.debug(`headers ${JSON.stringify(headers)}`);
     return await axios.get(url, {
       headers: { ...headers, "Content-Type": "application/json" },
     });
