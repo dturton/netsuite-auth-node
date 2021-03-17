@@ -105,6 +105,7 @@ export default class NsApi {
       url,
       headers: { ...headers, "Content-Type": "application/json" },
       method,
+      data: body,
     };
     this.debug(`headers ${JSON.stringify(headers)}`);
     return await axios.request(request);
@@ -146,6 +147,7 @@ export default class NsApi {
       url,
       headers: { ...headers, "Content-Type": "application/json" },
       method,
+      data: body,
     };
     return await axios.request(request);
   }
