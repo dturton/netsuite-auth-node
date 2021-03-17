@@ -10,6 +10,7 @@
 import OAuth, { RequestOptions } from "oauth-1.0a";
 import axios, { AxiosResponse } from "axios";
 import * as crypto from "crypto";
+import Debug from "debug";
 import { NSApiOptions, NSApiRequestOptions } from "./types";
 
 export default class NsApi {
@@ -17,12 +18,13 @@ export default class NsApi {
   private readonly token: string;
   private readonly secret: string;
   private readonly companyUrl: string;
+  private debug: Debug.Debugger;
 
   constructor(private readonly options: NSApiOptions) {
     this.token = this.options.tokenId;
     this.secret = this.options.tokenSecret;
     this.companyUrl = this.options.companyUrl;
-
+    this.debug = Debug("nsapi");
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     this.oauth = new OAuth({
       consumer: {
@@ -80,7 +82,7 @@ export default class NsApi {
    */
   public async request(opts: NSApiRequestOptions): Promise<AxiosResponse> {
     const { path, method, body } = opts;
-
+    this.debug(opts);
     const url = `${this.companyUrl}/services/rest/${path}`;
 
     const requestOptions: OAuth.RequestOptions = {
@@ -88,7 +90,7 @@ export default class NsApi {
       method,
       data: body,
     };
-
+    this.debug(`requestOptions ${requestOptions}`);
     const token: OAuth.Token = {
       key: this.token,
       secret: this.secret,
@@ -97,7 +99,7 @@ export default class NsApi {
       requestOptions,
       token
     );
-
+    this.debug(`headers ${headers}`);
     return await axios.get(url, {
       headers: { ...headers, "Content-Type": "application/json" },
     });
