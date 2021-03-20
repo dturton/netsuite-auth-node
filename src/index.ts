@@ -17,13 +17,13 @@ export default class NsApi {
   private readonly oauth: OAuth;
   private readonly token: string;
   private readonly secret: string;
-  private readonly companyUrl: string;
   private debug: Debug.Debugger;
+  private accountId: string;
 
   constructor(private readonly options: NSApiOptions) {
     this.token = this.options.tokenId;
     this.secret = this.options.tokenSecret;
-    this.companyUrl = this.options.companyUrl;
+    this.accountId = options.accountId;
     this.debug = Debug("nsapi");
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     this.oauth = new OAuth({
@@ -84,12 +84,14 @@ export default class NsApi {
     const { path, body } = opts;
     const method = opts.method as Method;
     this.debug(opts);
-    const url = `${this.companyUrl}/services/rest/${path}`;
+    const urlAccountId = this.accountId.replace(/_/g, "-").toLowerCase();
+    const url = `https://${urlAccountId}.suitetalk.api.netsuite.com/services/rest/${path}`;
 
     const requestOptions: OAuth.RequestOptions = {
       url,
       method,
       data: body,
+      includeBodyHash: true,
     };
     this.debug(`requestOptions ${JSON.stringify(requestOptions)}`);
     const token: OAuth.Token = {
@@ -107,7 +109,7 @@ export default class NsApi {
       method,
       data: body,
     };
-    this.debug(`headers ${JSON.stringify(headers)}`);
+
     return await axios.request(request);
   }
 
@@ -126,7 +128,8 @@ export default class NsApi {
     const { path, body } = opts;
     const method = opts.method as Method;
     this.debug(opts);
-    const url = `${this.companyUrl}/app/site/hosting/restlet.nl${path}`;
+    const urlAccountId = this.accountId.replace(/_/g, "-").toLowerCase();
+    const url = `https://${urlAccountId}.restlets.api.netsuite.com/app/site/hosting/restlet.nl${path}`;
 
     const requestOptions: OAuth.RequestOptions = {
       url,

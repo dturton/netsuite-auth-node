@@ -3,14 +3,13 @@ export interface NSApiOptions {
   consumerSecret: string;
   tokenId: string;
   tokenSecret: string;
-  companyUrl: string;
   accountId: string;
 }
 
 export interface NSApiRequestOptions {
   path?: string;
   method: string;
-  body?: string;
+  body?: unknown;
 }
 
 export type NSRestletRequestOptions = NSApiRequestOptions;
