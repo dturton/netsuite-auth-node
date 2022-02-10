@@ -4,6 +4,7 @@ export interface NSApiOptions {
   tokenId: string;
   tokenSecret: string;
   accountId: string;
+  debugger?: boolean;
 }
 
 export interface NSApiRequestOptions {
