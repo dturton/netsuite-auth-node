@@ -8,8 +8,11 @@ export interface NSApiOptions {
 }
 
 export interface NSApiRequestOptions {
+  /** Path to the resource. For example: record/v1/salesOrder/13842048?expandSubResources=true */
   path?: string;
+  /** POST,GET,PUT ETC */
   method: string;
+  /** Data for the body content */
   body?: unknown;
 }
 

@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /**
- * @packageDocumentation A small ultility to connect to NetSuite's SuiteTalk REST Web Services
+ * @packageDocumentation A small utility to connect to NetSuite's SuiteTalk REST Web Services
  */
 
 import OAuth, { RequestOptions } from "oauth-1.0a";
@@ -73,12 +73,9 @@ export default class NsApi {
 
   /**
    * Used to call any NetSuite Rest API endpoint
-   *
-   * @type {string }
-   *
-   * @type {string }
    * @public
    * @param opts
+   * @type NSApiRequestOptions
    */
   public async request(opts: NSApiRequestOptions): Promise<AxiosResponse> {
     const { path, body } = opts;
