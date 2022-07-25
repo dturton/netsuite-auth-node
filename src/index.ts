@@ -12,6 +12,7 @@ import axios, { AxiosResponse, AxiosRequestConfig, Method } from "axios";
 import * as crypto from "crypto";
 import Debug from "debug";
 import { NSApiOptions, NSApiRequestOptions } from "./types";
+export { NSApiOptions, NSApiRequestOptions } from "./types";
 
 export default class NsApi {
   private readonly oauth: OAuth;
